@@ -85,4 +85,3 @@ TARFILES = ast.ml codegen.ml Makefile mathlang.ml parser.mly README scanner.mll 
 mathlang-llvm.tar.gz : $(TARFILES)
 	cd .. && tar czf mathlang-llvm/mathlang-llvm.tar.gz \
 		$(TARFILES:%=mathlang-llvm/%)
-

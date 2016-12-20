@@ -39,11 +39,6 @@ decls:
   | decls var_decl      {($2 :: fst $1), snd $1}
   | decls fdecl         {fst $1, ($2 :: snd $1)}
 
-
-stmts:
-    /* nothing */       { [] }
-  | stmt_list           { List.rev $1 }
-
 stmt_list:
     stmt                { [$1] }
   | stmt_list stmt      { $2 :: $1 }
