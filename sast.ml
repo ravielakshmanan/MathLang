@@ -1,9 +1,11 @@
+open Ast
+
 type sexpr =
     SLiteral of int
   | SFloatLit of float
   | SBoolLit of bool
   | SStringLit of string
-  | SId of sstring
+  | SId of string
   | SBinop of sexpr * op * sexpr
   | SUnop of uop * sexpr
   | SAssign of string * sexpr
