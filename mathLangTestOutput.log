@@ -1,0 +1,114 @@
+/usr/local/opt/llvm38/bin/lli-3.8
+
+###### Testing test-add1
+./mathlang.native < tests/test-add1.mlang > test-add1.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-add1.ll > test-add1.out
+diff -b test-add1.out tests/test-add1.out > test-add1.diff
+###### SUCCESS
+
+###### Testing test-arith1
+./mathlang.native < tests/test-arith1.mlang > test-arith1.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-arith1.ll > test-arith1.out
+diff -b test-arith1.out tests/test-arith1.out > test-arith1.diff
+###### SUCCESS
+
+###### Testing test-arith2
+./mathlang.native < tests/test-arith2.mlang > test-arith2.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-arith2.ll > test-arith2.out
+diff -b test-arith2.out tests/test-arith2.out > test-arith2.diff
+###### SUCCESS
+
+###### Testing test-arith3
+./mathlang.native < tests/test-arith3.mlang > test-arith3.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-arith3.ll > test-arith3.out
+diff -b test-arith3.out tests/test-arith3.out > test-arith3.diff
+###### SUCCESS
+
+###### Testing test-for1
+./mathlang.native < tests/test-for1.mlang > test-for1.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-for1.ll > test-for1.out
+diff -b test-for1.out tests/test-for1.out > test-for1.diff
+###### SUCCESS
+
+###### Testing test-func1
+./mathlang.native < tests/test-func1.mlang > test-func1.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-func1.ll > test-func1.out
+diff -b test-func1.out tests/test-func1.out > test-func1.diff
+###### SUCCESS
+
+###### Testing test-func2
+./mathlang.native < tests/test-func2.mlang > test-func2.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-func2.ll > test-func2.out
+diff -b test-func2.out tests/test-func2.out > test-func2.diff
+###### SUCCESS
+
+###### Testing test-func3
+./mathlang.native < tests/test-func3.mlang > test-func3.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-func3.ll > test-func3.out
+diff -b test-func3.out tests/test-func3.out > test-func3.diff
+###### SUCCESS
+
+###### Testing test-func4
+./mathlang.native < tests/test-func4.mlang > test-func4.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-func4.ll > test-func4.out
+diff -b test-func4.out tests/test-func4.out > test-func4.diff
+###### SUCCESS
+
+###### Testing test-func5
+./mathlang.native < tests/test-func5.mlang > test-func5.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-func5.ll > test-func5.out
+diff -b test-func5.out tests/test-func5.out > test-func5.diff
+###### SUCCESS
+
+###### Testing test-func6
+./mathlang.native < tests/test-func6.mlang > test-func6.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-func6.ll > test-func6.out
+diff -b test-func6.out tests/test-func6.out > test-func6.diff
+###### SUCCESS
+
+###### Testing test-func7
+./mathlang.native < tests/test-func7.mlang > test-func7.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-func7.ll > test-func7.out
+diff -b test-func7.out tests/test-func7.out > test-func7.diff
+###### SUCCESS
+
+###### Testing test-helloworld
+./mathlang.native < tests/test-helloworld.mlang > test-helloworld.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-helloworld.ll > test-helloworld.out
+diff -b test-helloworld.out tests/test-helloworld.out > test-helloworld.diff
+###### SUCCESS
+
+###### Testing fail-assign1
+./mathlang.native < tests/fail-assign1.mlang 2> fail-assign1.err >> mathLangTestOutput.log
+diff -b fail-assign1.err tests/fail-assign1.err > fail-assign1.diff
+###### SUCCESS
+
+###### Testing fail-assign2
+./mathlang.native < tests/fail-assign2.mlang 2> fail-assign2.err >> mathLangTestOutput.log
+diff -b fail-assign2.err tests/fail-assign2.err > fail-assign2.diff
+###### SUCCESS
+
+###### Testing fail-assign3
+./mathlang.native < tests/fail-assign3.mlang 2> fail-assign3.err >> mathLangTestOutput.log
+diff -b fail-assign3.err tests/fail-assign3.err > fail-assign3.diff
+###### SUCCESS
+
+###### Testing fail-dead1
+./mathlang.native < tests/fail-dead1.mlang 2> fail-dead1.err >> mathLangTestOutput.log
+diff -b fail-dead1.err tests/fail-dead1.err > fail-dead1.diff
+###### SUCCESS
+
+###### Testing fail-dead2
+./mathlang.native < tests/fail-dead2.mlang 2> fail-dead2.err >> mathLangTestOutput.log
+diff -b fail-dead2.err tests/fail-dead2.err > fail-dead2.diff
+###### SUCCESS
+
+###### Testing fail-expr1
+./mathlang.native < tests/fail-expr1.mlang 2> fail-expr1.err >> mathLangTestOutput.log
+diff -b fail-expr1.err tests/fail-expr1.err > fail-expr1.diff
+###### SUCCESS
+
+###### Testing fail-expr2
+./mathlang.native < tests/fail-expr2.mlang 2> fail-expr2.err >> mathLangTestOutput.log
+diff -b fail-expr2.err tests/fail-expr2.err > fail-expr2.diff
+###### SUCCESS

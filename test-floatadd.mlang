@@ -1,0 +1,10 @@
+float add(float x, float y)
+{
+  return x + y;
+}
+
+int main()
+{
+  printf( add(1.5, 2.5) );
+  return 0;
+}
