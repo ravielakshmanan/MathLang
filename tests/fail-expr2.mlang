@@ -3,8 +3,8 @@ bool b;
 
 void foo(int c, bool d)    
 {
-  int d;
-  bool e;
+  int e;
+  bool f;
   b + a; /* Error: bool + int */
 }
 

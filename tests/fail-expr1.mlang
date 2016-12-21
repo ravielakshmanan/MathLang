@@ -3,13 +3,13 @@ bool b;
 
 void foo(int c, bool d)    
 {
-  int dd;
+  int d;
   bool e;
   a + c;
   c - a;
   a * 3;
   c / 2;
-  d + a; /* Error: bool + int */
+  b + a; /* Error: bool + int */
 }
 
 int main()

@@ -30,6 +30,12 @@ diff -b test-arith3.out tests/test-arith3.out > test-arith3.diff
 diff -b test-for1.out tests/test-for1.out > test-for1.diff
 ###### SUCCESS
 
+###### Testing test-for2
+./mathlang.native < tests/test-for2.mlang > test-for2.ll
+/usr/local/opt/llvm38/bin/lli-3.8 test-for2.ll > test-for2.out
+diff -b test-for2.out tests/test-for2.out > test-for2.diff
+###### SUCCESS
+
 ###### Testing test-func1
 ./mathlang.native < tests/test-func1.mlang > test-func1.ll
 /usr/local/opt/llvm38/bin/lli-3.8 test-func1.ll > test-func1.out
@@ -111,4 +117,9 @@ diff -b fail-expr1.err tests/fail-expr1.err > fail-expr1.diff
 ###### Testing fail-expr2
 ./mathlang.native < tests/fail-expr2.mlang 2> fail-expr2.err >> mathLangTestOutput.log
 diff -b fail-expr2.err tests/fail-expr2.err > fail-expr2.diff
+###### SUCCESS
+
+###### Testing fail-for2
+./mathlang.native < tests/fail-for2.mlang 2> fail-for2.err >> mathLangTestOutput.log
+diff -b fail-for2.err tests/fail-for2.err > fail-for2.diff
 ###### SUCCESS

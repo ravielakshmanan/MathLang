@@ -1,1 +1,1 @@
-Fatal error: exception Failure("illegal binary operator bool + int in b + a")
+Fatal error: exception Failure("invalid type for arithmetic operator + for types bool and int")

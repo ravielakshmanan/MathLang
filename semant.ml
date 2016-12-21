@@ -1,4 +1,4 @@
-(* Semantic checking for the MicroC compiler *)
+(* Semantic checking for the MathLang compiler *)
 
 open Ast
 
@@ -30,6 +30,52 @@ let check (globals, functions) =
      the given lvalue type *)
   let check_assign lvaluet rvaluet err =
      if lvaluet == rvaluet then lvaluet else raise err
+  in
+
+  (* Perform binary operation semantic checks depending on the data type passed *)
+  let checkBinaryOp e1 op e2 err =
+     let getequal type1 type2 op =
+        if (type1 = Float || type2 = Float)
+          then raise (Failure ("illegal binary operator used for float types"))
+        else
+          match type1, type2 with
+            Int, Int -> Bool
+          | Bool, Bool -> Bool
+          | _  -> raise (Failure ("Invalid equality operator " ^ string_of_op op ^ "for types " ^ 
+				(string_of_typ type1) ^ " and " ^ (string_of_typ type2)))
+     in
+
+     let getlogic type1 type2 op =
+        match type1, type2 with
+          Bool, Bool -> Bool
+        | _          -> raise (Failure ("invalid type for logical operator " ^ 
+				string_of_op op ^ " for types " ^ (string_of_typ type1) ^ " and " ^ (string_of_typ type2)))
+     in
+
+     let getcomp type1 type2 op =
+        match type1, type2 with
+          Int, Int     -> Bool
+	| Float, Float -> Bool
+        | _            -> raise (Failure ("invalid type for comparison operator " ^ 
+				string_of_op op ^ " for types " ^ (string_of_typ type1) ^ " and " ^ (string_of_typ type2)))
+     in
+
+     let getarith type1 type2 op =
+        match type1, type2 with
+          Int, Float
+        | Float, Int
+        | Float, Float -> Float
+        | Int, Int     -> Int
+        | _            -> raise (Failure ("invalid type for arithmetic operator " ^ 
+				string_of_op op ^ " for types " ^ (string_of_typ type1) ^ " and " ^ (string_of_typ type2)))
+     in
+
+     match op with
+        Equal | Neq                  -> getequal e1 e2 op
+      | Less | Leq | Greater | Geq   -> getcomp e1 e2 op
+      | Add | Mult | Sub | Div       -> getarith e1 e2 op
+      | And | Or                     -> getlogic e1 e2 op
+      | _                            -> raise err   
   in
    
   (**** Checking Global Variables ****)
@@ -103,16 +149,11 @@ let check (globals, functions) =
       | StringLit _ -> String 
       | FloatLit _ -> Float
       | Id s -> type_of_identifier s
-      | Binop(e1, op, e2) as e -> let t1 = expr e1 and t2 = expr e2 in
-	(match op with
-          Add | Sub | Mult | Div when t1 = Int && t2 = Int -> Int
-	| Equal | Neq when t1 = t2 -> Bool
-	| Less | Leq | Greater | Geq when t1 = Int && t2 = Int -> Bool
-	| And | Or when t1 = Bool && t2 = Bool -> Bool
-        | _ -> raise (Failure ("illegal binary operator " ^
+      | Binop(e1, op, e2) as ex -> let t1 = expr e1 
+                                   and t2 = expr e2 in
+	  checkBinaryOp t1 op t2 (Failure ("illegal binary operator " ^
               string_of_typ t1 ^ " " ^ string_of_op op ^ " " ^
-              string_of_typ t2 ^ " in " ^ string_of_expr e))
-        )
+              string_of_typ t2 ^ " in " ^ string_of_expr ex))
       | Unop(op, e) as ex -> let t = expr e in
 	 (match op with
 	   Neg when t = Int -> Int
@@ -136,7 +177,7 @@ let check (globals, functions) =
                 (Failure ("illegal actual argument found " ^ string_of_typ et ^
                 " expected " ^ string_of_typ ft ^ " in " ^ string_of_expr e))))
              fd.formals actuals;
-           fd.ftyp
+           fd.ftyp 
     in
 
     let check_bool_expr e = if expr e != Bool

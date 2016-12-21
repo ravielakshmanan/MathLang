@@ -20,7 +20,7 @@ clean :
 
 # More detailed: build using ocamlc/ocamlopt + ocamlfind to locate LLVM
 
-OBJS = ast.cmx sast.cmx codegen.cmx parser.cmx scanner.cmx semant.cmx mathlang.cmx
+OBJS = ast.cmx codegen.cmx parser.cmx scanner.cmx semant.cmx mathlang.cmx
 
 mathlang : $(OBJS)
 	ocamlfind ocamlopt -linkpkg -package llvm -package llvm.analysis $(OBJS) -o mathlang
@@ -44,14 +44,11 @@ parser.ml parser.mli : parser.mly
 ast.cmo :
 ast.cmx :
 
-sast.cmo :
-sast.cmx :
+codegen.cmo : ast.cmo
+codegen.cmx : ast.cmx
 
-codegen.cmo : ast.cmo sast.cmo
-codegen.cmx : ast.cmx sast.cmx
-
-mathlang.cmo : semant.cmo scanner.cmo parser.cmi codegen.cmo ast.cmo sast.cmo
-mathlang.cmx : semant.cmx scanner.cmx parser.cmx codegen.cmx ast.cmx sast.cmx
+mathlang.cmo : semant.cmo scanner.cmo parser.cmi codegen.cmo ast.cmo
+mathlang.cmx : semant.cmx scanner.cmx parser.cmx codegen.cmx ast.cmx
 
 parser.cmo : ast.cmo parser.cmi
 parser.cmx : ast.cmx parser.cmi
@@ -59,8 +56,8 @@ parser.cmx : ast.cmx parser.cmi
 scanner.cmo : parser.cmi
 scanner.cmx : parser.cmx
 
-semant.cmo : ast.cmo sast.cmo
-semant.cmx : ast.cmx sast.cmx
+semant.cmo : ast.cmo
+semant.cmx : ast.cmx
 
 parser.cmi : ast.cmo
 
